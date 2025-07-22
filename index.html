@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Charan's Store (All in One)</title>
+  <style>
+    body { font-family: Arial; padding: 20px; text-align: center; }
+    .product { margin: 20px; border: 1px solid #ccc; padding: 10px; display: inline-block; }
+    .basket {
+      position: fixed;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .page { display: none; }
+    .active { display: block; }
+    .payment {
+      border: 2px dashed green;
+      padding: 15px;
+      margin: 20px auto;
+      width: 80%;
+      background-color: #f0fff0;
+    }
+    .next-btn {
+      padding: 10px 20px;
+      background: green;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="basket" onclick="showPage('cart')">🧺 Basket</div>
+
+  <!-- Index Page -->
+  <div id="index" class="page active">
+    <h1>Welcome to Charan's Store</h1>
+    <div class="product">
+      <h3>Product 1</h3>
+      <p>Price: ₹100</p>
+      <button onclick="addToCart('Product 1 - ₹100')">Add to Cart</button>
+    </div>
+    <div class="product">
+      <h3>Product 2</h3>
+      <p>Price: ₹200</p>
+      <button onclick="addToCart('Product 2 - ₹200')">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- Cart Page -->
+  <div id="cart" class="page">
+    <h1>Your Selected Products</h1>
+    <ul id="cartItems" style="list-style: none;"></ul>
+
+    <div class="payment">
+      <h2>Payment Info</h2>
+      <p><strong>Pay using UPI:</strong> <br><code>7601017851@ibl</code></p>
+      <p><strong>Email for confirmation:</strong> <br><code>madeticharanteja19@gmail.com</code></p>
+      <p style="color: red;"><strong>Note:</strong> After completing the payment, click "Next"</p>
+    </div>
+
+    <div class="next-btn" onclick="showPage('thankyou')">Next</div>
+  </div>
+
+  <!-- Thank You Page -->
+  <div id="thankyou" class="page">
+    <h1>🎉 Thank You for Ordering!</h1>
+    <p>We have received your payment and will process your order soon.</p>
+    <p>- Charan Teja</p>
+  </div>
+
+  <script>
+    const cart = [];
+
+    function addToCart(item) {
+      cart.push(item);
+      alert(item + ' added to cart!');
+    }
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+
+      if (pageId === 'cart') {
+        const cartList = document.getElementById('cartItems');
+        cartList.innerHTML = '';
+        cart.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          cartList.appendChild(li);
+        });
+      }
+    }
+  </script>
+
+</body>
+</html>
